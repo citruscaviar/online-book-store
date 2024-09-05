@@ -1,7 +1,7 @@
 package com.onlinebookstore.store;
 
 import com.onlinebookstore.store.model.Book;
-import com.onlinebookstore.store.repository.BookRepositoryImpl;
+import com.onlinebookstore.store.service.BookServiceImpl;
 import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class StoreApplication {
     @Autowired
-    private BookRepositoryImpl bookRepository;
+    private BookServiceImpl bookService;
 
     public static void main(String[] args) {
         SpringApplication.run(StoreApplication.class, args);
@@ -26,8 +26,8 @@ public class StoreApplication {
             book.setAuthor("Joshua Bloch");
             book.setIsbn("978-0134685991");
             book.setPrice(new BigDecimal("45.99"));
-            bookRepository.save(book);
-            System.out.println(bookRepository.findAll());
+            bookService.save(book);
+            System.out.println(bookService.findAll());
         };
     }
 }

@@ -1,18 +1,17 @@
 package com.onlinebookstore.store.repository;
 
+import com.onlinebookstore.store.exceptions.DataProcessingException;
 import com.onlinebookstore.store.model.Book;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
-    @Autowired
     private final SessionFactory sessionFactory;
 
     @Override
@@ -29,7 +28,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new RuntimeException("Cannot add a book to the database", e);
+            throw new DataProcessingException("Cannot add a book to the database", e);
         } finally {
             if (session != null) {
                 session.close();
@@ -43,7 +42,7 @@ public class BookRepositoryImpl implements BookRepository {
             return session.createQuery("FROM Book", Book.class).list();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Failed to find all Books", e);
+            throw new DataProcessingException("Failed to find all Books", e);
         }
     }
 }

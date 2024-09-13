@@ -5,7 +5,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class StoreApplicationTests {
-    @Test
-    void contextLoads() {
-    }
+
+	@Test
+	void contextLoads() {
+	}
+
 }

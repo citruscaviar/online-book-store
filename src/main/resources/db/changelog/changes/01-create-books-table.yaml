@@ -25,13 +25,13 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: isbn
-                  type: VARCHAR(13)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
                     unique: true
               - column:
                   name: price
-                  type: DECIMAL(10, 2)
+                  type: DECIMAL(38, 2)
                   constraints:
                     nullable: false
               - column:
@@ -45,4 +45,4 @@ databaseChangeLog:
                   type: BOOLEAN
                   defaultValueBoolean: false
                   constraints:
-                    nullable: false
+                    nullable: "false"

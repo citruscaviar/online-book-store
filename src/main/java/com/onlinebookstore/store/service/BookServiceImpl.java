@@ -7,7 +7,6 @@ import com.onlinebookstore.store.mapper.BookMapper;
 import com.onlinebookstore.store.model.Book;
 import com.onlinebookstore.store.repository.BookRepository;
 import java.util.List;
-import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +19,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
         Book book = bookMapper.toModel(requestDto);
-        book.setIsbn(generateRandomIsbn());
-        return bookMapper.toDto(book);
+        return bookMapper.toDto(bookRepository.save(book));
     }
 
     @Override
@@ -38,12 +36,16 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDto(book);
     }
 
-    private String generateRandomIsbn() {
-        Random random = new Random();
-        StringBuilder isbn = new StringBuilder("978");
-        for (int i = 0; i < 10; i++) {
-            isbn.append(random.nextInt(10));
-        }
-        return isbn.toString();
+    @Override
+    public BookDto update(Long id, CreateBookRequestDto requestDto) {
+        Book book = bookRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Couldn't find a book with id: " + id));
+        bookMapper.updateBookFromDto(requestDto, book);
+        return bookMapper.toDto(bookRepository.save(book));
+    }
+
+    @Override
+    public void delete(Long id) {
+        bookRepository.deleteById(id);
     }
 }

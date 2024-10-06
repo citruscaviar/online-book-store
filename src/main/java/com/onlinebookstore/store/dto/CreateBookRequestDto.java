@@ -1,10 +1,10 @@
 package com.onlinebookstore.store.dto;
 
-import com.onlinebookstore.store.validation.Description;
 import com.onlinebookstore.store.validation.Isbn;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import lombok.Data;
 
@@ -21,7 +21,7 @@ public class CreateBookRequestDto {
     @Min(0)
     private BigDecimal price;
     @NotBlank
-    @Description
+    @Size
     private String description;
     private String coverImage;
 }

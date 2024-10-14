@@ -6,6 +6,7 @@ import com.onlinebookstore.store.exceptions.RegistrationException;
 import com.onlinebookstore.store.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,10 +21,9 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/registration")
-    @Operation()
+    @Operation(description = "Registers a user")
     public UserResponseDto register(
-            @RequestBody UserRegistrationRequestDto requestDto)
-            throws RegistrationException {
+            @RequestBody @Valid UserRegistrationRequestDto requestDto) {
         return userService.register(requestDto);
     }
 }

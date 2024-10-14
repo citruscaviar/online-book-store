@@ -28,6 +28,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RegistrationException.class)
     public ResponseEntity<String> handleRegistrationExceptions(RegistrationException ex) {
-        return new ResponseEntity<>("RegistrationException has occurred",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("RegistrationException has occurred",HttpStatus.CONFLICT);
     }
 }

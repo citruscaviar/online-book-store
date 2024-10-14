@@ -2,7 +2,6 @@ package com.onlinebookstore.store.controller;
 
 import com.onlinebookstore.store.dto.UserRegistrationRequestDto;
 import com.onlinebookstore.store.dto.UserResponseDto;
-import com.onlinebookstore.store.exceptions.RegistrationException;
 import com.onlinebookstore.store.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

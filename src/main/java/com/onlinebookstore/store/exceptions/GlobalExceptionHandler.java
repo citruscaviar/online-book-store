@@ -23,6 +23,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleEntityNotFoundExceptions(EntityNotFoundException ex) {
-        return new ResponseEntity<>("EntityNotFoundException occured",HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("EntityNotFoundException has occurred",HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RegistrationException.class)
+    public ResponseEntity<String> handleRegistrationExceptions(RegistrationException ex) {
+        return new ResponseEntity<>("RegistrationException has occurred",HttpStatus.CONFLICT);
     }
 }

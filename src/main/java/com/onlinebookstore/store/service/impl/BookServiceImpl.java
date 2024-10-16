@@ -1,11 +1,12 @@
-package com.onlinebookstore.store.service;
+package com.onlinebookstore.store.service.impl;
 
-import com.onlinebookstore.store.dto.BookDto;
+import com.onlinebookstore.store.dto.BookResponseDto;
 import com.onlinebookstore.store.dto.CreateBookRequestDto;
 import com.onlinebookstore.store.exceptions.EntityNotFoundException;
 import com.onlinebookstore.store.mapper.BookMapper;
 import com.onlinebookstore.store.model.Book;
 import com.onlinebookstore.store.repository.BookRepository;
+import com.onlinebookstore.store.service.BookService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -18,27 +19,27 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public BookDto save(CreateBookRequestDto requestDto) {
+    public BookResponseDto save(CreateBookRequestDto requestDto) {
         Book book = bookMapper.toModel(requestDto);
         return bookMapper.toDto(bookRepository.save(book));
     }
 
     @Override
-    public List<BookDto> findAll(Pageable pageable) {
+    public List<BookResponseDto> findAll(Pageable pageable) {
         return bookRepository.findAll(pageable).stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
 
     @Override
-    public BookDto findById(Long id) {
+    public BookResponseDto findById(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Couldn't find a book with id: " + id));
         return bookMapper.toDto(book);
     }
 
     @Override
-    public BookDto update(Long id, CreateBookRequestDto requestDto) {
+    public BookResponseDto update(Long id, CreateBookRequestDto requestDto) {
         Book book = bookRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Couldn't find a book with id: " + id));
         bookMapper.updateBookFromDto(requestDto, book);

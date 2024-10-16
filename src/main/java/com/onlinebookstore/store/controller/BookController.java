@@ -1,6 +1,6 @@
 package com.onlinebookstore.store.controller;
 
-import com.onlinebookstore.store.dto.BookDto;
+import com.onlinebookstore.store.dto.BookResponseDto;
 import com.onlinebookstore.store.dto.CreateBookRequestDto;
 import com.onlinebookstore.store.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,28 +30,28 @@ public class BookController {
     @GetMapping
     @Operation(summary = "Finds all books",
             description = "Implements sorting and pagination")
-    public List<BookDto> getAll(Pageable pageable) {
+    public List<BookResponseDto> getAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Finds a book by id")
-    public BookDto getBookById(@PathVariable Long id) {
+    public BookResponseDto getBookById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
     @PostMapping()
     @Operation(summary = "Creates a new book",
             description = "Checks if a field you entered is valid")
-    public BookDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
+    public BookResponseDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
         return bookService.save(bookDto);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Updates an existing book",
             description = "Checks if a field you entered is valid")
-    public BookDto updateBook(@PathVariable Long id,
-                              @RequestBody @Valid CreateBookRequestDto bookDto) {
+    public BookResponseDto updateBook(@PathVariable Long id,
+                                      @RequestBody @Valid CreateBookRequestDto bookDto) {
         return bookService.update(id,bookDto);
     }
 

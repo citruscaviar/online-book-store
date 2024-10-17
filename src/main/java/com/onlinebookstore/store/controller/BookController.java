@@ -10,6 +10,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Finds all books",
             description = "Implements sorting and pagination")
     public List<BookResponseDto> getAll(Pageable pageable) {
@@ -35,12 +37,14 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Finds a book by id")
     public BookResponseDto getBookById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
     @PostMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Creates a new book",
             description = "Checks if a field you entered is valid")
     public BookResponseDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
@@ -48,6 +52,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Updates an existing book",
             description = "Checks if a field you entered is valid")
     public BookResponseDto updateBook(@PathVariable Long id,
@@ -57,6 +62,7 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Deletes a book",
             description = "Uses soft-delete")
     public void deleteBook(@PathVariable Long id) {

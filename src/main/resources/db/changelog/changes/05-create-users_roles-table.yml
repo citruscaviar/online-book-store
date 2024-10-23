@@ -22,6 +22,3 @@ databaseChangeLog:
                     referencedTableName: roles
                     referencedColumnNames: id
                     nullable: false
-        - addPrimaryKey:
-            columnNames: role_id, user_id
-            tableName: users_roles

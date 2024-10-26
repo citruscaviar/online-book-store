@@ -22,4 +22,3 @@ databaseChangeLog:
                     referencedTableName: roles
                     referencedColumnNames: id
                     nullable: false
-                    primaryKey: true

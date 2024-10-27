@@ -1,5 +1,6 @@
 package com.onlinebookstore.store.service;
 
+import com.onlinebookstore.store.dto.BookDtoWithoutCategoryIds;
 import com.onlinebookstore.store.dto.BookResponseDto;
 import com.onlinebookstore.store.dto.CreateBookRequestDto;
 import java.util.List;
@@ -9,6 +10,8 @@ public interface BookService {
     BookResponseDto save(CreateBookRequestDto requestDto);
 
     List<BookResponseDto> findAll(Pageable pageable);
+
+    List<BookDtoWithoutCategoryIds> getBooksByCategory(Long id);
 
     BookResponseDto findById(Long id);
 

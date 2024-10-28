@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,24 +35,28 @@ public class CategoryController {
     @PostMapping
     @Operation(description = "Creates a category for the book")
     @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
     public CategoryResponseDto createCategory(@RequestBody @Valid CategoryRequestDto categoryDto) {
         return categoryService.save(categoryDto);
     }
 
     @GetMapping("/{id}/books")
     @Operation(description = "Finds books by category")
-    List<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long id) {
-        return bookService.getBooksByCategory(id);
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long categoryId) {
+        return bookService.getBooksByCategory(categoryId);
     }
 
     @GetMapping
     @Operation(description = "Finds all categories")
-    public List<CategoryResponseDto> getAll(Pageable pageable) {
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public Page<CategoryResponseDto> getAll(Pageable pageable) {
         return categoryService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
     @Operation(description = "Finds a category by id")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public CategoryResponseDto getCategoryById(Long id) {
         return categoryService.getById(id);
     }

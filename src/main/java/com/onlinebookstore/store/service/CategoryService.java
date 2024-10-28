@@ -2,11 +2,11 @@ package com.onlinebookstore.store.service;
 
 import com.onlinebookstore.store.dto.CategoryRequestDto;
 import com.onlinebookstore.store.dto.CategoryResponseDto;
-import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface CategoryService {
-    List<CategoryResponseDto> findAll(Pageable pageable);
+    Page<CategoryResponseDto> findAll(Pageable pageable);
 
     CategoryResponseDto getById(Long id);
 
@@ -16,5 +16,4 @@ public interface CategoryService {
                                CategoryRequestDto categoryDto);
 
     void deleteById(Long id);
-
 }

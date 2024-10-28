@@ -7,9 +7,8 @@ import com.onlinebookstore.store.mapper.CategoryMapper;
 import com.onlinebookstore.store.model.Category;
 import com.onlinebookstore.store.repository.CategoryRepository;
 import com.onlinebookstore.store.service.CategoryService;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +19,9 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public List<CategoryResponseDto> findAll(Pageable pageable) {
-        return categoryRepository.findAll(pageable).stream()
-                .map(categoryMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<CategoryResponseDto> findAll(Pageable pageable) {
+        return categoryRepository.findAll(pageable)
+                .map(categoryMapper::toDto);
     }
 
     @Override

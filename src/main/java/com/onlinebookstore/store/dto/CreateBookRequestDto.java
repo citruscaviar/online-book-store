@@ -3,6 +3,7 @@ package com.onlinebookstore.store.dto;
 import com.onlinebookstore.store.validation.Isbn;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -25,6 +26,6 @@ public class CreateBookRequestDto {
     @Size
     private String description;
     private String coverImage;
-    @NotNull
+    @NotEmpty
     private Set<Long> categoryIds;
 }

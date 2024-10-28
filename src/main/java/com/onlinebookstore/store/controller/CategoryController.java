@@ -43,7 +43,7 @@ public class CategoryController {
     @GetMapping("/{id}/books")
     @Operation(description = "Finds books by category")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(Long categoryId) {
+    public List<BookDtoWithoutCategoryIds> getBooksByCategoryId(@PathVariable Long categoryId) {
         return bookService.getBooksByCategory(categoryId);
     }
 
@@ -57,7 +57,7 @@ public class CategoryController {
     @GetMapping("/{id}")
     @Operation(description = "Finds a category by id")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public CategoryResponseDto getCategoryById(Long id) {
+    public CategoryResponseDto getCategoryById(@PathVariable Long id) {
         return categoryService.getById(id);
     }
 
@@ -75,7 +75,7 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(description = "Deletes a category by id")
-    public void deleteCategory(Long id) {
+    public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteById(id);
     }
 }

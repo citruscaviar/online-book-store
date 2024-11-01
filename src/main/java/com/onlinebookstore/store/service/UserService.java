@@ -6,4 +6,5 @@ import com.onlinebookstore.store.dto.UserResponseDto;
 public interface UserService {
     UserResponseDto register(UserRegistrationRequestDto
                                  userRegistrationRequestDto);
+
 }

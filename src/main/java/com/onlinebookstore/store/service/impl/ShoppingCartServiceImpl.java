@@ -8,6 +8,7 @@ import com.onlinebookstore.store.mapper.ShoppingCartMapper;
 import com.onlinebookstore.store.model.Book;
 import com.onlinebookstore.store.model.CartItem;
 import com.onlinebookstore.store.model.ShoppingCart;
+import com.onlinebookstore.store.model.User;
 import com.onlinebookstore.store.repository.BookRepository;
 import com.onlinebookstore.store.repository.CartItemRepository;
 import com.onlinebookstore.store.repository.ShoppingCartRepository;
@@ -25,7 +26,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final ShoppingCartMapper shoppingCartMapper;
 
     @Override
-    @Transactional
     public ShoppingCartDto getShoppingCart(Long userId) {
         return shoppingCartMapper
                 .toDto(getShoppingCartByUserId(userId));
@@ -79,6 +79,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 cartItemId, shoppingCart.getId());
         shoppingCart.removeItemFromCart(cartItem);
         return shoppingCartMapper.toDto(shoppingCart);
+    }
+
+    public void createNewShoppingCart(User user) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUser(user);
+        shoppingCartRepository.save(shoppingCart);
     }
 
     private ShoppingCart getShoppingCartByUserId(Long userId) {

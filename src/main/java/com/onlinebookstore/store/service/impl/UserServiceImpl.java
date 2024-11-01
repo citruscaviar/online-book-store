@@ -6,11 +6,10 @@ import com.onlinebookstore.store.exceptions.EntityNotFoundException;
 import com.onlinebookstore.store.exceptions.RegistrationException;
 import com.onlinebookstore.store.mapper.UserMapper;
 import com.onlinebookstore.store.model.Role;
-import com.onlinebookstore.store.model.ShoppingCart;
 import com.onlinebookstore.store.model.User;
 import com.onlinebookstore.store.repository.RoleRepository;
-import com.onlinebookstore.store.repository.ShoppingCartRepository;
 import com.onlinebookstore.store.repository.UserRepository;
+import com.onlinebookstore.store.service.ShoppingCartService;
 import com.onlinebookstore.store.service.UserService;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
-    private final ShoppingCartRepository shoppingCartRepository;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
     public UserResponseDto register(UserRegistrationRequestDto requestDto) {
@@ -39,13 +38,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(
                     () -> new EntityNotFoundException("Can't find role by name"));
         user.setRoles(Set.of(role));
-        createNewShoppingCart(userRepository.save(user));
+        shoppingCartService.createNewShoppingCart(userRepository.save(user));
         return userMapper.toDto(userRepository.save(user));
-    }
-
-    private void createNewShoppingCart(User user) {
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setUser(user);
-        shoppingCartRepository.save(shoppingCart);
     }
 }

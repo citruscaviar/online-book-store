@@ -10,9 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.SortDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,10 +33,7 @@ public class ShoppingCartController {
     @Operation(summary = "Retrieve user's shopping cart",
             description = "Retrieves the user's shopping cart")
     public ShoppingCartDto getShoppingCart(
-            Authentication authentication,
-            @SortDefault.SortDefaults({
-                    @SortDefault(sort = "id", direction = Sort.Direction.ASC)})
-            Pageable pageable) {
+            Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return shoppingCartService.getShoppingCart(user.getId());
     }
@@ -60,12 +54,12 @@ public class ShoppingCartController {
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Update quantity of a book in the shopping cart",
             description = "Updates the quantity of a book in the user's shopping cart")
-    public void updateCartItem(
+    public ShoppingCartDto updateCartItem(
             Authentication authentication,
             @PathVariable @Positive Long cartItemId,
             @RequestBody @Valid CartItemUpdateDto cartItemRequestDto) {
         User user = (User) authentication.getPrincipal();
-        shoppingCartService.updateCartItem(user.getId(),
+        return shoppingCartService.updateCartItem(user.getId(),
                 cartItemId, cartItemRequestDto);
     }
 
@@ -73,10 +67,10 @@ public class ShoppingCartController {
     @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Remove a book from the shopping cart",
             description = "Removes a book from the user's shopping cart")
-    public ShoppingCartDto deleteCartItem(
+    public void deleteCartItem(
             Authentication authentication,
             @PathVariable @Positive Long cartItemId) {
         User user = (User) authentication.getPrincipal();
-        return shoppingCartService.removeCartItem(user.getId(), cartItemId);
+        shoppingCartService.removeCartItem(user.getId(), cartItemId);
     }
 }

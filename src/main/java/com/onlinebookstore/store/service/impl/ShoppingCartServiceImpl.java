@@ -45,19 +45,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .findFirst()
                 .ifPresentOrElse(cartItem -> cartItem.setQuantity(cartItem.getQuantity()
                                 + itemDto.getQuantity()),
-                        () -> addCartItemToShoppingCart(itemDto, book, cart));
+                        () -> createCartItem(itemDto, book, cart));
 
         shoppingCartRepository.save(cart);
         return shoppingCartMapper.toDto(cart);
-    }
-
-    private void addCartItemToShoppingCart(CartItemRequestDto itemDto,
-                                           Book book, ShoppingCart cart) {
-        CartItem newCartItem = new CartItem();
-        newCartItem.setBook(book);
-        newCartItem.setQuantity(itemDto.getQuantity());
-        newCartItem.setShoppingCart(cart);
-        cart.getCartItems().add(newCartItem);
     }
 
     @Override
@@ -94,5 +85,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                                 "Can't find user by id" + userId
                         )
                 );
+    }
+
+    private void createCartItem(CartItemRequestDto itemDto,
+                                Book book, ShoppingCart cart) {
+        CartItem newCartItem = new CartItem();
+        newCartItem.setBook(book);
+        newCartItem.setQuantity(itemDto.getQuantity());
+        newCartItem.setShoppingCart(cart);
+        cart.getCartItems().add(newCartItem);
     }
 }

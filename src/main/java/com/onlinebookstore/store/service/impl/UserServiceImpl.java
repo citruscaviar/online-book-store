@@ -11,6 +11,7 @@ import com.onlinebookstore.store.repository.RoleRepository;
 import com.onlinebookstore.store.repository.UserRepository;
 import com.onlinebookstore.store.service.ShoppingCartService;
 import com.onlinebookstore.store.service.UserService;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class UserServiceImpl implements UserService {
                 .findByName(Role.RoleName.USER)
                 .orElseThrow(
                     () -> new EntityNotFoundException("Can't find role by name"));
+        user.setRoles(Set.of(role));
         userRepository.save(user);
         shoppingCartService.createNewShoppingCart(user);
         return userMapper.toDto(user);

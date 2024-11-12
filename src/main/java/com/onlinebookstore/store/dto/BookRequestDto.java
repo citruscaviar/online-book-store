@@ -9,9 +9,11 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Set;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
-public class CreateBookRequestDto {
+@Accessors(chain = true)
+public class BookRequestDto {
     @NotBlank
     private String title;
     @NotBlank

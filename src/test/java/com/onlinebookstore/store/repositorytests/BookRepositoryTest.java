@@ -32,7 +32,7 @@ import org.springframework.test.context.jdbc.Sql;
         "classpath:database/test/categories/delete-categories.sql",
 },
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class BookRepositoryTest {
+public class BookRepositoryTest {
 
     @Autowired
     private BookRepository bookRepository;
@@ -40,33 +40,45 @@ class BookRepositoryTest {
     @Test
     @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
     public void findAllByCategoryId_ExistedId_Success() {
-        Category category = new Category();
-        category.setId(12L);
-        category.setName("Test a");
-        Book firstBook = new Book();
-        firstBook.setId(12L);
-        firstBook.setTitle("Test Book 1");
-        firstBook.setAuthor("Test Author 1");
-        firstBook.setIsbn("9783161484100");
-        firstBook.setPrice(BigDecimal.valueOf(19.99));
-        firstBook.setDescription("Description for Test Book 1");
-        firstBook.setCoverImage("http://example.com/cover1.jpg");
-        firstBook.setCategories(Set.of(category));
-
-        Book secondBook = new Book();
-        secondBook.setId(13L);
-        secondBook.setTitle("Test Book 2");
-        secondBook.setAuthor("Test Author 2");
-        secondBook.setIsbn("9783161484101");
-        secondBook.setPrice(BigDecimal.valueOf(29.99));
-        secondBook.setDescription("Description for Test Book 2");
-        secondBook.setCoverImage("http://example.com/cover2.jpg");
-        secondBook.setCategories(Set.of(category));
-
-        List<Book> expected = List.of(firstBook, secondBook);
+        Category category = createTestCategory();
+        List<Book> expected = List.of(createFirstTestBook(category),
+                createSecondTestBook(category));
 
         List<Book> actual = bookRepository.findAllByCategoryId(12L);
 
         assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+    }
+
+    private Category createTestCategory() {
+        Category category = new Category();
+        category.setId(12L);
+        category.setName("Test a");
+        return category;
+    }
+
+    private Book createFirstTestBook(Category category) {
+        Book book = new Book();
+        book.setId(12L);
+        book.setTitle("Test Book 1");
+        book.setAuthor("Test Author 1");
+        book.setIsbn("9783161484100");
+        book.setPrice(BigDecimal.valueOf(19.99));
+        book.setDescription("Description for Test Book 1");
+        book.setCoverImage("http://example.com/cover1.jpg");
+        book.setCategories(Set.of(category));
+        return book;
+    }
+
+    private Book createSecondTestBook(Category category) {
+        Book book = new Book();
+        book.setId(13L);
+        book.setTitle("Test Book 2");
+        book.setAuthor("Test Author 2");
+        book.setIsbn("9783161484101");
+        book.setPrice(BigDecimal.valueOf(29.99));
+        book.setDescription("Description for Test Book 2");
+        book.setCoverImage("http://example.com/cover2.jpg");
+        book.setCategories(Set.of(category));
+        return book;
     }
 }

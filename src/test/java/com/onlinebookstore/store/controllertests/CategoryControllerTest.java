@@ -1,5 +1,6 @@
 package com.onlinebookstore.store.controllertests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -71,12 +72,8 @@ class CategoryControllerTest {
         CategoryResponseDto actualDto = objectMapper.readValue(result.getResponse()
                         .getContentAsString(),
                 CategoryResponseDto.class);
-        Assertions.assertEquals(createCategoryDto
-                        .getName(),
-                actualDto.getName());
-        Assertions.assertEquals(createCategoryDto
-                        .getDescription(),
-                actualDto.getDescription());
+        assertEquals(createCategoryDto.getName(), actualDto.getName());
+        assertEquals(createCategoryDto.getDescription(), actualDto.getDescription());
     }
 
     @Test
@@ -116,8 +113,8 @@ class CategoryControllerTest {
         CategoryResponseDto actualDto = objectMapper.readValue(result.getResponse()
                         .getContentAsString(),
                 CategoryResponseDto.class);
-        Assertions.assertEquals(updateCategoryDto.getName(), actualDto.getName());
-        Assertions.assertEquals(updateCategoryDto.getDescription(), actualDto.getDescription());
+        assertEquals(updateCategoryDto.getName(), actualDto.getName());
+        assertEquals(updateCategoryDto.getDescription(), actualDto.getDescription());
     }
 
     private CategoryResponseDto createTestCategoryResponseDto() {

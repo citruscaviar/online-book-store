@@ -1,8 +1,8 @@
 package com.onlinebookstore.store.service.impl;
 
 import com.onlinebookstore.store.dto.BookDtoWithoutCategoryIds;
+import com.onlinebookstore.store.dto.BookRequestDto;
 import com.onlinebookstore.store.dto.BookResponseDto;
-import com.onlinebookstore.store.dto.CreateBookRequestDto;
 import com.onlinebookstore.store.exceptions.EntityNotFoundException;
 import com.onlinebookstore.store.mapper.BookMapper;
 import com.onlinebookstore.store.model.Book;
@@ -25,7 +25,7 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public BookResponseDto save(CreateBookRequestDto requestDto) {
+    public BookResponseDto save(BookRequestDto requestDto) {
         Book book = bookMapper.toModel(requestDto);
         return bookMapper.toDto(bookRepository.save(book));
     }
@@ -51,7 +51,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public BookResponseDto update(Long id, CreateBookRequestDto requestDto) {
+    public BookResponseDto update(Long id, BookRequestDto requestDto) {
         Set<Category> categories = categoryRepository
                     .findByIdIn(requestDto.getCategoryIds());
         Book book = bookRepository.findById(id).orElseThrow(

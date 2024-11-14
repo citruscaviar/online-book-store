@@ -2,11 +2,11 @@ package com.onlinebookstore.store.service;
 
 import com.onlinebookstore.store.dto.CategoryRequestDto;
 import com.onlinebookstore.store.dto.CategoryResponseDto;
-import org.springframework.data.domain.Page;
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 public interface CategoryService {
-    Page<CategoryResponseDto> findAll(Pageable pageable);
+    List<CategoryResponseDto> findAll(Pageable pageable);
 
     CategoryResponseDto getById(Long id);
 

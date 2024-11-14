@@ -2,8 +2,8 @@ package com.onlinebookstore.store.mapper;
 
 import com.onlinebookstore.store.config.MapperConfig;
 import com.onlinebookstore.store.dto.BookDtoWithoutCategoryIds;
+import com.onlinebookstore.store.dto.BookRequestDto;
 import com.onlinebookstore.store.dto.BookResponseDto;
-import com.onlinebookstore.store.dto.CreateBookRequestDto;
 import com.onlinebookstore.store.model.Book;
 import com.onlinebookstore.store.model.Category;
 import java.util.List;
@@ -22,11 +22,11 @@ public interface BookMapper {
 
     @Mapping(target = "id",ignore = true)
     @Mapping(target = "categories", ignore = true)
-    Book toModel(CreateBookRequestDto requestDto);
+    Book toModel(BookRequestDto requestDto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "categories", ignore = true)
-    void updateBookFromDto(CreateBookRequestDto requestDto, @MappingTarget Book book);
+    void updateBookFromDto(BookRequestDto requestDto, @MappingTarget Book book);
 
     List<BookDtoWithoutCategoryIds> toDtoWithoutCategories(List<Book> books);
 

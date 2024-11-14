@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -50,7 +49,7 @@ public class CategoryController {
     @GetMapping
     @Operation(description = "Finds all categories")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public Page<CategoryResponseDto> getAll(Pageable pageable) {
+    public List<CategoryResponseDto> getAll(Pageable pageable) {
         return categoryService.findAll(pageable);
     }
 

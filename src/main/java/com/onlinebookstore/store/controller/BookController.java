@@ -1,7 +1,7 @@
 package com.onlinebookstore.store.controller;
 
+import com.onlinebookstore.store.dto.BookRequestDto;
 import com.onlinebookstore.store.dto.BookResponseDto;
-import com.onlinebookstore.store.dto.CreateBookRequestDto;
 import com.onlinebookstore.store.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -47,7 +47,7 @@ public class BookController {
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Creates a new book",
             description = "Checks if a field you entered is valid")
-    public BookResponseDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
+    public BookResponseDto createBook(@RequestBody @Valid BookRequestDto bookDto) {
         return bookService.save(bookDto);
     }
 
@@ -56,7 +56,7 @@ public class BookController {
     @Operation(summary = "Updates an existing book",
             description = "Checks if a field you entered is valid")
     public BookResponseDto updateBook(@PathVariable Long id,
-                                      @RequestBody @Valid CreateBookRequestDto bookDto) {
+                                      @RequestBody @Valid BookRequestDto bookDto) {
         return bookService.update(id,bookDto);
     }
 

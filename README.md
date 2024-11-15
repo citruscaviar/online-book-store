@@ -1,17 +1,10 @@
 # Online Bookstore Application
 
 ## Project Overview
-
-This project aims to deliver a fully-functional online bookstore application.
-The app allows users to browse, manage shopping carts, and place orders,
-while admins can manage books, categories, and order statuses.
-The application is developed using Java and Spring Boot and follows a domain-driven design.
-Below are the core domain models used in the app.
+This project aims to deliver a fully functional online bookstore application. The app allows users to browse books, manage shopping carts, and place orders, while administrators can manage books, categories, and order statuses. The application follows a domain-driven design and is built using **Java** and **Spring Boot**, integrating several modern technologies.
 
 ## Domain Models
-
 The following domain models are central to the app:
-
 - **User**: Stores data about registered users, including authentication details and personal information.
 - **Role**: Represents the user's role in the system (e.g., admin, user).
 - **Book**: Represents a book available for purchase in the store.
@@ -24,9 +17,7 @@ The following domain models are central to the app:
 ## User Roles and Features
 
 ### Shopper (User)
-
 Shoppers have the following capabilities:
-
 - Sign up and sign in to the store.
 - Browse books across all categories or within a selected category.
 - View detailed information about each book.
@@ -35,21 +26,27 @@ Shoppers have the following capabilities:
 - View past orders and check details of each order.
 
 ### Manager (Admin)
-
 Admins can:
-
 - Add, remove, or update books in the store.
 - Create and delete book categories.
 - Update book and category details.
 - Update the order status (e.g., mark as "shipped" or "delivered").
 
-## Technologies Used
+## Architecture Overview
+The architecture of this application is based on a layered approach:
+- **Presentation Layer**: Handles user requests (via REST APIs) and returns responses.
+- **Service Layer**: Contains the business logic and communicates between the presentation and data layers.
+- **Data Access Layer**: Interacts with the database, using **Hibernate** as the ORM framework.
+- **Security**: Implemented using **Spring Security** with **JWT** for authentication.
 
-- Java 17+
-- Spring Boot
-- Hibernate
-- MySQL (or other relational databases)
-- MapStruct (for DTO mapping)
+## Technologies Used
+- **Java 17+**
+- **Spring Boot** (REST APIs, Service Layer, Security)
+- **Hibernate** (ORM framework)
+- **MySQL** (Database)
+- **MapStruct** (DTO mapping)
+- **Docker** (Containerization for deployment)
+- **JWT** (JSON Web Token for authentication)
 
 ## How to Run the Project
 

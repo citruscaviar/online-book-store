@@ -55,6 +55,7 @@ The architecture of this application is based on a layered approach:
 git clone https://github.com/citruscaviar/online-book-store
 ```
 2. Set up the environment variables
+
 Create a **.env** file in the root directory of the project.
 Add the following environment variables inside the .env file:
 
@@ -72,7 +73,8 @@ docker-compose up
 ```
 This will start the application along with the MySQL database in Docker containers.
 The application will be accessible at http://localhost:8080.
-4. Swagger:Once the application is running,
+
+4. Swagger
+
+Once the application is running,
 you can view the API documentation via Swagger at http://localhost:8080/swagger-ui.html
-
-

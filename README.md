@@ -51,6 +51,28 @@ The architecture of this application is based on a layered approach:
 ## How to Run the Project
 
 1. Clone this repository.
-2. Set up your local environment (e.g., MySQL database, Java 17+).
-3. Configure the application.yml file with your database connection details.
-4. Run the project using your preferred method (e.g., mvn spring-boot:run).
+```bash
+git clone https://github.com/citruscaviar/online-book-store
+```
+2. Set up the environment variables
+Create a **.env** file in the root directory of the project.
+Add the following environment variables inside the .env file:
+
+```env
+- DATABASE_URL=jdbc:mysql://localhost:3306/online_bookstore
+- DATABASE_USERNAME=myusername
+- DATABASE_PASSWORD=mypassword
+- JWT_SECRET=my_jwt_secret_key
+```
+3. Run the application using Docker. Ensure that Docker is installed and running on your machine.
+Then, in the root directory of the project, run the following command:
+
+```bash
+docker-compose up
+```
+This will start the application along with the MySQL database in Docker containers.
+The application will be accessible at http://localhost:8080.
+4. Swagger:Once the application is running,
+you can view the API documentation via Swagger at http://localhost:8080/swagger-ui.html
+
+
